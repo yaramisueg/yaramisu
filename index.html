@@ -114,62 +114,6 @@ h2{font-family:"Playfair Display",serif;font-size:clamp(42px,5vw,78px);font-weig
 footer{padding:35px 7vw 50px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
 .reveal{opacity:0;transform:translateY(35px);transition:1s var(--ease)}.reveal.visible{opacity:1;transform:none}
 
-
-/* REAL PRODUCT MENU */
-.menu-cards{grid-template-columns:repeat(3,1fr)}
-.menu-card{min-height:500px;padding:22px 22px 26px;display:flex;flex-direction:column;justify-content:flex-start;isolation:isolate}
-.menu-card h3{font-size:32px;margin:2px 0 0;position:relative;z-index:3}
-.menu-card .card-number{position:relative;z-index:3}
-.product-image-wrap{
-  flex:1;
-  min-height:340px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  margin-top:4px;
-}
-.product-image-wrap:before{
-  content:"";
-  position:absolute;
-  width:78%;
-  height:64%;
-  border-radius:50%;
-  background:radial-gradient(ellipse, rgba(203,185,156,.26) 0%, rgba(203,185,156,0) 72%);
-  filter:blur(3px);
-  transform:translateY(24px);
-  z-index:-1;
-}
-.product-image{
-  display:block;
-  width:min(100%,340px);
-  height:340px;
-  object-fit:contain;
-  object-position:center;
-  filter:drop-shadow(0 22px 18px rgba(48,27,22,.14));
-  transform:translateY(6px) scale(.96);
-  transition:transform .65s var(--ease),filter .65s var(--ease);
-  user-select:none;
-  -webkit-user-drag:none;
-}
-.menu-card:hover .product-image{
-  transform:translateY(-8px) scale(1.04);
-  filter:drop-shadow(0 30px 25px rgba(48,27,22,.20));
-}
-.menu-card:hover{
-  transform:translateY(-10px);
-}
-@media(max-width:850px){
-  .menu-cards{grid-template-columns:1fr 1fr}
-  .menu-card{min-height:460px}
-  .product-image-wrap{min-height:300px}
-  .product-image{height:300px}
-}
-@media(max-width:560px){
-  .menu-cards{grid-template-columns:1fr}
-  .menu-card{min-height:480px}
-}
-
 /* THEME SYSTEM */
 .theme-picker{position:relative;margin-left:auto;margin-right:16px}
 .theme-trigger{border:1px solid var(--line);background:rgba(255,255,255,.18);color:var(--espresso);border-radius:999px;padding:10px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.3s var(--ease)}
@@ -239,7 +183,7 @@ body, nav, .card, .order, .marquee, .story, .btn, .theme-menu, .theme-trigger, f
 <div class="noise"></div><div class="cursor" id="cursor"></div>
 
 <nav id="nav">
-  <a href="#top"><img class="nav-logo" src="assets/Yaramisu_Logo_Color.png" alt="Yaramisu"></a>
+  <a href="#top"><img class="nav-logo" src="assets/Yaramisu_Logo_Color.svg" alt="Yaramisu"></a>
   <div class="nav-links"><a href="#story">Story</a><a href="#menu">Menu</a><a href="#craft">Craft</a></div>
   <div class="theme-picker">
   <button class="theme-trigger" aria-label="Change website theme">◐ Theme</button>
@@ -276,44 +220,11 @@ body, nav, .card, .order, .marquee, .story, .btn, .theme-menu, .theme-trigger, f
 <div class="marquee"><div class="track"><span>Yaramisu</span><span>made with passion</span><span>the finest ingredients</span><span>a little treat</span><span>Yaramisu</span><span>made with passion</span><span>the finest ingredients</span><span>a little treat</span></div></div>
 
 <section id="menu">
-  <div class="section-head reveal">
-    <div>
-      <div class="kicker">The collection</div>
-      <h2>Six ways<br>to fall in love.</h2>
-    </div>
-    <p>Choose your Yaramisu favorite.</p>
-  </div>
-  <div class="cards menu-cards">
-    <article class="card menu-card reveal">
-      <span class="card-number">01 / ORIGINAL</span>
-      <div class="product-image-wrap"><img class="product-image" src="assets/original.png" alt="Yaramisu Original tiramisu"></div>
-      <h3>Original</h3>
-    </article>
-    <article class="card menu-card reveal">
-      <span class="card-number">02 / CHOCOLATE</span>
-      <div class="product-image-wrap"><img class="product-image" src="assets/chocolate.png" alt="Yaramisu Chocolate tiramisu"></div>
-      <h3>Chocolate</h3>
-    </article>
-    <article class="card menu-card reveal">
-      <span class="card-number">03 / LOTUS</span>
-      <div class="product-image-wrap"><img class="product-image" src="assets/lotus.png" alt="Yaramisu Lotus tiramisu"></div>
-      <h3>Lotus</h3>
-    </article>
-    <article class="card menu-card reveal">
-      <span class="card-number">04 / LEMON</span>
-      <div class="product-image-wrap"><img class="product-image" src="assets/lemon.png" alt="Yaramisu Lemon tiramisu"></div>
-      <h3>Lemon</h3>
-    </article>
-    <article class="card menu-card reveal">
-      <span class="card-number">05 / MANGO</span>
-      <div class="product-image-wrap"><img class="product-image" src="assets/mango.png" alt="Yaramisu Mango tiramisu"></div>
-      <h3>Mango</h3>
-    </article>
-    <article class="card menu-card reveal">
-      <span class="card-number">06 / RASPBERRY</span>
-      <div class="product-image-wrap"><img class="product-image" src="assets/raspberry.png" alt="Yaramisu Raspberry tiramisu"></div>
-      <h3>Raspberry</h3>
-    </article>
+  <div class="section-head reveal"><div><div class="kicker">The collection</div><h2>Three ways<br>to fall in love.</h2></div><p>Each cup is built around the same Yaramisu signature: balanced coffee, silky mascarpone and delicate layers that melt together.</p></div>
+  <div class="cards">
+    <article class="card reveal"><span class="card-number">01 / CLASSIC</span><h3>Original</h3><p>Espresso-soaked layers, cloud-soft mascarpone and a generous dusting of cocoa.</p><div class="card-art"></div></article>
+    <article class="card reveal"><span class="card-number">02 / SIGNATURE</span><h3>Yaramisu</h3><p>Our house signature with deeper coffee notes and an extra-creamy finish.</p><div class="card-art"></div></article>
+    <article class="card reveal"><span class="card-number">03 / SEASONAL</span><h3>Limited</h3><p>Playful seasonal layers created in small batches. Here today, gone deliciously soon.</p><div class="card-art"></div></article>
   </div>
 </section>
 
