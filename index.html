@@ -112,13 +112,13 @@ footer{padding:35px 7vw 50px;border-top:1px solid var(--line);display:flex;justi
 
 /* REAL PRODUCT IMAGES — original card design preserved */
 .menu-cards{grid-template-columns:repeat(3,1fr)}
-.menu-card h3{margin-top:90px}
+.menu-card h3{margin-top:42px}
 .menu-product-image{
   position:absolute;
   right:-28px;
-  bottom:-34px;
-  width:235px;
-  height:235px;
+  bottom:-48px;
+  width:220px;
+  height:220px;
   object-fit:contain;
   object-position:center;
   z-index:2;
@@ -135,18 +135,20 @@ footer{padding:35px 7vw 50px;border-top:1px solid var(--line);display:flex;justi
 }
 @media(max-width:850px){
   .menu-cards{grid-template-columns:1fr 1fr}
-  .menu-product-image{width:205px;height:205px;right:-28px;bottom:-28px}
+  .menu-product-image{width:195px;height:195px;right:-30px;bottom:-42px}
 }
 @media(max-width:560px){
   .menu-cards{grid-template-columns:1fr}
-  .menu-product-image{width:225px;height:225px;right:-28px;bottom:-30px}
+  .menu-card h3{margin-top:36px}
+  .menu-description{max-width:58%;line-height:1.55}
+  .menu-product-image{width:200px;height:200px;right:-30px;bottom:-42px}
 }
 
 /* FLAVOR DESCRIPTIONS */
 .menu-description{
   position:relative;
   z-index:3;
-  max-width:58%;
+  max-width:62%;
   margin:12px 0 0;
   font-size:14px;
   line-height:1.65;
