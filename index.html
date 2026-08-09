@@ -29,13 +29,6 @@ body{
 a{color:inherit;text-decoration:none}
 button{font:inherit}
 ::selection{background:var(--espresso);color:var(--cream)}
-.cursor{
-  position:fixed;left:0;top:0;width:18px;height:18px;border:1px solid var(--espresso);
-  border-radius:50%;pointer-events:none;z-index:100;transform:translate(-50%,-50%);
-  transition:width .25s var(--ease),height .25s var(--ease),background .25s;
-  mix-blend-mode:multiply;
-}
-.cursor.on{width:48px;height:48px;background:rgba(75,30,30,.09)}
 .noise{position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E")}
 nav{
   position:fixed;top:0;left:0;right:0;height:78px;display:flex;align-items:center;justify-content:space-between;
@@ -60,10 +53,6 @@ h1 em{font-weight:500;color:var(--coffee)}
 .btn.primary{background:var(--espresso);color:var(--cream)}.btn.primary:hover{transform:translateY(-4px);box-shadow:0 16px 35px rgba(75,30,30,.18)}
 .btn.ghost:hover{background:rgba(75,30,30,.06);transform:translateY(-4px)}
 .hero-stage{height:min(680px,70vw);min-height:460px;position:relative;display:grid;place-items:center}
-.orbit{position:absolute;width:min(40vw,520px);height:min(40vw,520px);border:1px solid rgba(75,30,30,.12);border-radius:50%;animation:spin 18s linear infinite}
-.orbit:before,.orbit:after{content:"";position:absolute;border-radius:50%;background:var(--espresso)}
-.orbit:before{width:7px;height:7px;left:12%;top:18%}.orbit:after{width:5px;height:5px;right:12%;bottom:18%}
-@keyframes spin{to{transform:rotate(360deg)}}
 .tiramisu{
   width:min(600px,58vw);
   aspect-ratio:1.5/1;
@@ -230,7 +219,7 @@ body, nav, .card, .order, .marquee, .story, .btn, .theme-menu, .theme-trigger, f
 </style>
 </head>
 <body>
-<div class="noise"></div><div class="cursor" id="cursor"></div>
+<div class="noise"></div>
 
 <nav id="nav">
   <a href="#top"><img class="nav-logo" src="assets/Yaramisu_Logo_Color.png" alt="Yaramisu"></a>
@@ -257,7 +246,6 @@ body, nav, .card, .order, .marquee, .story, .btn, .theme-menu, .theme-trigger, f
     <div class="actions"><a class="btn primary" href="#order">Taste Yaramisu <span>↗</span></a><a class="btn ghost" href="#story">Our story</a></div>
   </div>
   <div class="hero-stage reveal" id="stage">
-    <div class="orbit"></div>
     <div class="float-note note1">Freshly layered</div>
     <div class="float-note note2">Made for slow moments</div>
     <div class="tiramisu" id="tiramisu">
@@ -340,19 +328,12 @@ body, nav, .card, .order, .marquee, .story, .btn, .theme-menu, .theme-trigger, f
 <footer><span>© 2026 Yaramisu</span><span>Made with layers & love</span><span>Egypt</span></footer>
 
 <script>
-const nav=document.getElementById('nav'), cursor=document.getElementById('cursor'), stage=document.getElementById('stage'), tir=document.getElementById('tiramisu');
+const nav=document.getElementById('nav'), stage=document.getElementById('stage'), tir=document.getElementById('tiramisu');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20),{passive:true});
 
 const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-window.addEventListener('pointermove',e=>{
-  cursor.style.left=e.clientX+'px'; cursor.style.top=e.clientY+'px';
-});
-document.querySelectorAll('a,.btn,.card,.ingredient div').forEach(el=>{
-  el.addEventListener('pointerenter',()=>cursor.classList.add('on'));
-  el.addEventListener('pointerleave',()=>cursor.classList.remove('on'));
-});
 
 let pointerX=0, pointerY=0, heroScroll=0, heroTick=false;
 
