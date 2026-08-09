@@ -113,8 +113,118 @@ h2{font-family:"Playfair Display",serif;font-size:clamp(42px,5vw,78px);font-weig
 .order .actions{position:relative;z-index:3}
 footer{padding:35px 7vw 50px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
 .reveal{opacity:0;transform:translateY(35px);transition:1s var(--ease)}.reveal.visible{opacity:1;transform:none}
+
+
+/* REAL PRODUCT MENU */
+.menu-cards{grid-template-columns:repeat(3,1fr)}
+.menu-card{min-height:500px;padding:22px 22px 26px;display:flex;flex-direction:column;justify-content:flex-start;isolation:isolate}
+.menu-card h3{font-size:32px;margin:2px 0 0;position:relative;z-index:3}
+.menu-card .card-number{position:relative;z-index:3}
+.product-image-wrap{
+  flex:1;
+  min-height:340px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  margin-top:4px;
+}
+.product-image-wrap:before{
+  content:"";
+  position:absolute;
+  width:78%;
+  height:64%;
+  border-radius:50%;
+  background:radial-gradient(ellipse, rgba(203,185,156,.26) 0%, rgba(203,185,156,0) 72%);
+  filter:blur(3px);
+  transform:translateY(24px);
+  z-index:-1;
+}
+.product-image{
+  display:block;
+  width:min(100%,340px);
+  height:340px;
+  object-fit:contain;
+  object-position:center;
+  filter:drop-shadow(0 22px 18px rgba(48,27,22,.14));
+  transform:translateY(6px) scale(.96);
+  transition:transform .65s var(--ease),filter .65s var(--ease);
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.menu-card:hover .product-image{
+  transform:translateY(-8px) scale(1.04);
+  filter:drop-shadow(0 30px 25px rgba(48,27,22,.20));
+}
+.menu-card:hover{
+  transform:translateY(-10px);
+}
 @media(max-width:850px){
-  nav{padding:0 5vw}.nav-links{display:none}
+  .menu-cards{grid-template-columns:1fr 1fr}
+  .menu-card{min-height:460px}
+  .product-image-wrap{min-height:300px}
+  .product-image{height:300px}
+}
+@media(max-width:560px){
+  .menu-cards{grid-template-columns:1fr}
+  .menu-card{min-height:480px}
+}
+
+/* THEME SYSTEM */
+.theme-picker{position:relative;margin-left:auto;margin-right:16px}
+.theme-trigger{border:1px solid var(--line);background:rgba(255,255,255,.18);color:var(--espresso);border-radius:999px;padding:10px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.3s var(--ease)}
+.theme-trigger:hover{background:var(--espresso);color:var(--cream)}
+.theme-menu{position:absolute;right:0;top:48px;width:190px;padding:8px;background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:0 20px 45px rgba(50,25,20,.14);opacity:0;visibility:hidden;transform:translateY(-8px) scale(.98);transition:.3s var(--ease);z-index:80}
+.theme-menu.open{opacity:1;visibility:visible;transform:none}
+.theme-menu button{width:100%;border:0;background:none;color:var(--ink);display:flex;align-items:center;gap:10px;padding:11px;border-radius:10px;cursor:pointer;text-align:left;font-size:11px}
+.theme-menu button:hover{background:rgba(75,30,30,.07)}
+.theme-menu i{width:18px;height:18px;border-radius:50%;display:block;background:var(--swatch,#CBB99C);border:1px solid rgba(0,0,0,.08)}
+.theme-menu button:nth-child(1) i{--swatch:#F3ECE1}
+.theme-menu button:nth-child(2) i{--swatch:#4B1E1E}
+.theme-menu button:nth-child(3) i{--swatch:#CBB99C}
+.theme-menu button:nth-child(4) i{--swatch:#D9A6A0}
+.theme-menu button:nth-child(5) i{--swatch:#24201F}
+
+body.theme-espresso{
+  --espresso:#F3ECE1;--coffee:#D2B79A;--latte:#8C6651;--cream:#2A1715;
+  --paper:#38211E;--ink:#F7EFE5;--muted:#CDB9A9;--line:rgba(243,236,225,.16);
+}
+body.theme-espresso .orbit{border-color:rgba(243,236,225,.18)}
+body.theme-espresso .card-art{background:#4B2A25}
+body.theme-espresso .card-art:before{background:#C8A27F;box-shadow:0 -28px 0 #E9D9C7,0 -56px 0 #9A684E}
+body.theme-espresso .theme-trigger{background:rgba(255,255,255,.04)}
+
+body.theme-cocoa{
+  --espresso:#5A351F;--coffee:#8A6042;--latte:#D2B18D;--cream:#E8D6C0;
+  --paper:#F8F0E5;--ink:#3A271D;--muted:#80695A;--line:rgba(90,53,31,.16);
+}
+body.theme-cocoa .card-art{background:#E6D0B5}
+body.theme-cocoa .card-art:before{background:#7A4C31;box-shadow:0 -28px 0 #F3E4D2,0 -56px 0 #9A6547}
+
+body.theme-rose{
+  --espresso:#6A3036;--coffee:#965B5E;--latte:#D7AEB0;--cream:#F7E8E5;
+  --paper:#FFF8F5;--ink:#43282B;--muted:#866A6C;--line:rgba(106,48,54,.15);
+}
+body.theme-rose .card-art{background:#F0D2D1}
+body.theme-rose .card-art:before{background:#70403C;box-shadow:0 -28px 0 #F8E8DF,0 -56px 0 #87514D}
+
+body.theme-midnight{
+  --espresso:#F2E7DA;--coffee:#CBA77D;--latte:#795F4B;--cream:#171313;
+  --paper:#231D1B;--ink:#F4E9DD;--muted:#BCA99B;--line:rgba(242,231,218,.15);
+}
+body.theme-midnight .orbit{border-color:rgba(242,231,218,.18)}
+body.theme-midnight .card-art{background:#342824}
+body.theme-midnight .card-art:before{background:#9B6B48;box-shadow:0 -28px 0 #DCC9B5,0 -56px 0 #704733}
+body.theme-midnight .theme-trigger{background:rgba(255,255,255,.04)}
+body.theme-midnight .order{background:#231D1B}
+body.theme-midnight footer{border-color:var(--line)}
+
+body, nav, .card, .order, .marquee, .story, .btn, .theme-menu, .theme-trigger, footer, .ingredient div{
+  transition:background-color .65s var(--ease),color .65s var(--ease),border-color .65s var(--ease);
+}
+
+@media(max-width:850px){
+  nav{padding:0 5vw}.nav-links{display:none}.theme-picker{margin-left:auto;margin-right:10px}.theme-trigger{padding:9px 11px;font-size:10px}
   .hero{grid-template-columns:1fr;padding-top:125px}.hero-stage{height:540px}
   .cards{grid-template-columns:1fr}.story{grid-template-columns:1fr}.ingredient{grid-template-columns:repeat(2,1fr)}
   .section-head,.order,footer{display:block}.section-head p{margin-top:25px}.order .actions{margin-top:30px}
@@ -129,9 +239,19 @@ footer{padding:35px 7vw 50px;border-top:1px solid var(--line);display:flex;justi
 <div class="noise"></div><div class="cursor" id="cursor"></div>
 
 <nav id="nav">
-  <a href="#top"><img class="nav-logo" src="assets/Yaramisu_Logo_Color.svg" alt="Yaramisu"></a>
+  <a href="#top"><img class="nav-logo" src="assets/Yaramisu_Logo_Color.png" alt="Yaramisu"></a>
   <div class="nav-links"><a href="#story">Story</a><a href="#menu">Menu</a><a href="#craft">Craft</a></div>
-  <a class="nav-cta" href="#order">Order a cup</a>
+  <div class="theme-picker">
+  <button class="theme-trigger" aria-label="Change website theme">◐ Theme</button>
+  <div class="theme-menu" id="themeMenu">
+    <button data-theme="classic"><i></i>Classic Cream</button>
+    <button data-theme="espresso"><i></i>Espresso</button>
+    <button data-theme="cocoa"><i></i>Cocoa Latte</button>
+    <button data-theme="rose"><i></i>Rose Tiramisu</button>
+    <button data-theme="midnight"><i></i>Midnight</button>
+  </div>
+</div>
+<a class="nav-cta" href="#order">Order a cup</a>
 </nav>
 
 <main id="top">
@@ -156,11 +276,44 @@ footer{padding:35px 7vw 50px;border-top:1px solid var(--line);display:flex;justi
 <div class="marquee"><div class="track"><span>Yaramisu</span><span>made with passion</span><span>the finest ingredients</span><span>a little treat</span><span>Yaramisu</span><span>made with passion</span><span>the finest ingredients</span><span>a little treat</span></div></div>
 
 <section id="menu">
-  <div class="section-head reveal"><div><div class="kicker">The collection</div><h2>Three ways<br>to fall in love.</h2></div><p>Each cup is built around the same Yaramisu signature: balanced coffee, silky mascarpone and delicate layers that melt together.</p></div>
-  <div class="cards">
-    <article class="card reveal"><span class="card-number">01 / CLASSIC</span><h3>Original</h3><p>Espresso-soaked layers, cloud-soft mascarpone and a generous dusting of cocoa.</p><div class="card-art"></div></article>
-    <article class="card reveal"><span class="card-number">02 / SIGNATURE</span><h3>Yaramisu</h3><p>Our house signature with deeper coffee notes and an extra-creamy finish.</p><div class="card-art"></div></article>
-    <article class="card reveal"><span class="card-number">03 / SEASONAL</span><h3>Limited</h3><p>Playful seasonal layers created in small batches. Here today, gone deliciously soon.</p><div class="card-art"></div></article>
+  <div class="section-head reveal">
+    <div>
+      <div class="kicker">The collection</div>
+      <h2>Six ways<br>to fall in love.</h2>
+    </div>
+    <p>Choose your Yaramisu favorite.</p>
+  </div>
+  <div class="cards menu-cards">
+    <article class="card menu-card reveal">
+      <span class="card-number">01 / ORIGINAL</span>
+      <div class="product-image-wrap"><img class="product-image" src="assets/original.png" alt="Yaramisu Original tiramisu"></div>
+      <h3>Original</h3>
+    </article>
+    <article class="card menu-card reveal">
+      <span class="card-number">02 / CHOCOLATE</span>
+      <div class="product-image-wrap"><img class="product-image" src="assets/chocolate.png" alt="Yaramisu Chocolate tiramisu"></div>
+      <h3>Chocolate</h3>
+    </article>
+    <article class="card menu-card reveal">
+      <span class="card-number">03 / LOTUS</span>
+      <div class="product-image-wrap"><img class="product-image" src="assets/lotus.png" alt="Yaramisu Lotus tiramisu"></div>
+      <h3>Lotus</h3>
+    </article>
+    <article class="card menu-card reveal">
+      <span class="card-number">04 / LEMON</span>
+      <div class="product-image-wrap"><img class="product-image" src="assets/lemon.png" alt="Yaramisu Lemon tiramisu"></div>
+      <h3>Lemon</h3>
+    </article>
+    <article class="card menu-card reveal">
+      <span class="card-number">05 / MANGO</span>
+      <div class="product-image-wrap"><img class="product-image" src="assets/mango.png" alt="Yaramisu Mango tiramisu"></div>
+      <h3>Mango</h3>
+    </article>
+    <article class="card menu-card reveal">
+      <span class="card-number">06 / RASPBERRY</span>
+      <div class="product-image-wrap"><img class="product-image" src="assets/raspberry.png" alt="Yaramisu Raspberry tiramisu"></div>
+      <h3>Raspberry</h3>
+    </article>
   </div>
 </section>
 
@@ -215,6 +368,29 @@ document.querySelectorAll('.card').forEach(card=>{
   });
   card.addEventListener('pointerleave',()=>card.style.transform='');
 });
+
+const themeTrigger=document.querySelector('.theme-trigger');
+const themeMenu=document.getElementById('themeMenu');
+const themeButtons=document.querySelectorAll('.theme-menu button');
+const themes=['classic','espresso','cocoa','rose','midnight'];
+const savedTheme=localStorage.getItem('yaramisu-theme') || 'classic';
+
+function applyTheme(theme){
+  document.body.classList.remove(...themes.filter(t=>t!=='classic').map(t=>'theme-'+t));
+  if(theme!=='classic') document.body.classList.add('theme-'+theme);
+  localStorage.setItem('yaramisu-theme',theme);
+  themeMenu.classList.remove('open');
+}
+applyTheme(savedTheme);
+themeTrigger.addEventListener('click',e=>{
+  e.stopPropagation();
+  themeMenu.classList.toggle('open');
+});
+themeButtons.forEach(btn=>{
+  btn.addEventListener('click',()=>applyTheme(btn.dataset.theme));
+});
+document.addEventListener('click',()=>themeMenu.classList.remove('open'));
+
 </script>
 </body>
 </html>
