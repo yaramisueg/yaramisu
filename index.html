@@ -36,7 +36,9 @@ nav{
   transition:.4s var(--ease);
 }
 nav.scrolled{border-color:var(--line);background:var(--cream)}
-.nav-logo{width:126px}
+.nav-logo{width:126px;display:block;flex:0 0 auto}
+.nav > a:first-child{display:flex;align-items:center;flex:0 0 auto}
+.nav-links{margin-left:0}
 .nav-links{display:flex;gap:30px;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
 .nav-links a{opacity:.72;transition:.25s}.nav-links a:hover{opacity:1}
 .nav-cta{border:1px solid var(--espresso);padding:11px 18px;border-radius:999px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;transition:.3s}
