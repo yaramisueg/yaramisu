@@ -228,7 +228,7 @@ body, nav, .card, .order, .marquee, .story, .btn, .theme-menu, .theme-trigger, f
 <div class="noise"></div>
 
 <nav id="nav">
-  <a href="#top"><img class="nav-logo" src="assets/Yaramisu_Logo_Color.png" alt="Yaramisu"></a>
+  <a href="#top"><img class="nav-logo" id="navLogo" src="assets/Yaramisu_Logo_Color.png" alt="Yaramisu"></a>
   <div class="nav-links"><a href="#story">Story</a><a href="#menu">Menu</a><a href="#craft">Craft</a></div>
   <div class="theme-picker">
   <button class="theme-trigger" aria-label="Change website theme">◐ Theme</button>
@@ -394,12 +394,15 @@ document.querySelectorAll('.card').forEach(card=>{
 const themeTrigger=document.querySelector('.theme-trigger');
 const themeMenu=document.getElementById('themeMenu');
 const themeButtons=document.querySelectorAll('.theme-menu button');
+const navLogo=document.getElementById('navLogo');
 const themes=['classic','espresso','cocoa','rose','midnight'];
+const darkThemes=new Set(['espresso','midnight']);
 const savedTheme=localStorage.getItem('yaramisu-theme') || 'classic';
 
 function applyTheme(theme){
   document.body.classList.remove(...themes.filter(t=>t!=='classic').map(t=>'theme-'+t));
   if(theme!=='classic') document.body.classList.add('theme-'+theme);
+  navLogo.src = darkThemes.has(theme) ? 'assets/Yaramisu_Logo_White.png' : 'assets/Yaramisu_Logo_Color.png';
   localStorage.setItem('yaramisu-theme',theme);
   themeMenu.classList.remove('open');
 }
