@@ -146,6 +146,18 @@ footer{padding:35px 7vw 50px;border-top:1px solid var(--line);display:flex;justi
   .menu-cards{grid-template-columns:1fr}
   .menu-product-image{width:225px;height:225px;right:-28px;bottom:-30px}
 }
+
+/* FLAVOR DESCRIPTIONS */
+.menu-description{
+  position:relative;
+  z-index:3;
+  max-width:58%;
+  margin:12px 0 0;
+  font-size:14px;
+  line-height:1.65;
+  color:var(--muted, #6f625b);
+}
+
 /* THEME SYSTEM */
 .theme-picker{position:relative;margin-left:auto;margin-right:16px}
 .theme-trigger{border:1px solid var(--line);background:rgba(255,255,255,.18);color:var(--espresso);border-radius:999px;padding:10px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.3s var(--ease)}
@@ -263,31 +275,37 @@ body, nav, .card, .order, .marquee, .story, .btn, .theme-menu, .theme-trigger, f
     <article class="card menu-card reveal">
       <span class="card-number">01 / ORIGINAL</span>
       <h3>Original</h3>
+      <p class="menu-description">Classic tiramisu with mascarpone cream, coffee-soaked ladyfingers and a delicate cocoa finish.</p>
       <img class="menu-product-image" src="assets/original.png" alt="Yaramisu Original tiramisu">
     </article>
     <article class="card menu-card reveal">
       <span class="card-number">02 / CHOCOLATE</span>
       <h3>Chocolate</h3>
+      <p class="menu-description">Rich and indulgent, layered with mascarpone cream, chocolate sponge and smooth chocolate.</p>
       <img class="menu-product-image" src="assets/chocolate.png" alt="Yaramisu Chocolate tiramisu">
     </article>
     <article class="card menu-card reveal">
       <span class="card-number">03 / LOTUS</span>
       <h3>Lotus</h3>
+      <p class="menu-description">A creamy favorite with Lotus biscuit spread, caramelized biscuit crumbs and mascarpone.</p>
       <img class="menu-product-image" src="assets/lotus.png" alt="Yaramisu Lotus tiramisu">
     </article>
     <article class="card menu-card reveal">
       <span class="card-number">04 / LEMON</span>
       <h3>Lemon</h3>
+      <p class="menu-description">A refreshing twist with silky mascarpone cream, bright lemon curd and delicate lemon zest.</p>
       <img class="menu-product-image" src="assets/lemon.png" alt="Yaramisu Lemon tiramisu">
     </article>
     <article class="card menu-card reveal">
       <span class="card-number">05 / MANGO</span>
       <h3>Mango</h3>
+      <p class="menu-description">Tropical and creamy, combining mascarpone cream, ripe mango purée and soft ladyfingers.</p>
       <img class="menu-product-image" src="assets/mango.png" alt="Yaramisu Mango tiramisu">
     </article>
     <article class="card menu-card reveal">
       <span class="card-number">06 / RASPBERRY</span>
       <h3>Raspberry</h3>
+      <p class="menu-description">Fruity and vibrant, layered with mascarpone cream, raspberry compote and soft ladyfingers.</p>
       <img class="menu-product-image" src="assets/raspberry.png" alt="Yaramisu Raspberry tiramisu">
     </article>
   </div>
