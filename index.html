@@ -336,46 +336,27 @@ body, nav, .card, .order, .marquee, .story, .btn, .theme-menu, .theme-trigger, f
 
 <script>
 const nav=document.getElementById('nav'), stage=document.getElementById('stage'), tir=document.getElementById('tiramisu');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20),{passive:true});
 
-// --- Nav "scrolled" toggle, folded into a single rAF-throttled tick ---
-let navTick=false;
-function updateNav(){
-  nav.classList.toggle('scrolled',scrollY>20);
-  navTick=false;
-}
-function requestNav(){
-  if(!navTick){ navTick=true; requestAnimationFrame(updateNav); }
-}
-window.addEventListener('scroll',requestNav,{passive:true});
-requestNav();
-
-// --- Reveal-on-scroll: stop observing once an element has appeared ---
-const io=new IntersectionObserver(entries=>entries.forEach(e=>{
-  if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
-}),{threshold:.12});
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 
-let pointerX=0, pointerY=0, heroTick=false, stageRect=stage.getBoundingClientRect();
-
-function refreshStageRect(){ stageRect=stage.getBoundingClientRect(); }
-window.addEventListener('resize',refreshStageRect);
+let pointerX=0, pointerY=0, heroScroll=0, heroTick=false;
 
 stage.addEventListener('pointermove',e=>{
-  // Reuse the cached rect instead of forcing a layout read on every pointer event.
-  pointerX=(e.clientX-stageRect.left)/stageRect.width-.5;
-  pointerY=(e.clientY-stageRect.top)/stageRect.height-.5;
-  requestHeroMotion();
+  const r=stage.getBoundingClientRect();
+  pointerX=(e.clientX-r.left)/r.width-.5;
+  pointerY=(e.clientY-r.top)/r.height-.5;
 });
 
 stage.addEventListener('pointerleave',()=>{
   pointerX=0;
   pointerY=0;
-  requestHeroMotion();
 });
 
 function updateHeroMotion(){
-  const rect=stageRect;
+  const rect=stage.getBoundingClientRect();
   const viewportCenter=window.innerHeight/2;
   const progress=(viewportCenter-(rect.top+rect.height/2))/Math.max(window.innerHeight, rect.height);
   const p=Math.max(-1,Math.min(1,progress));
@@ -400,7 +381,7 @@ function requestHeroMotion(){
 }
 
 window.addEventListener('scroll',requestHeroMotion,{passive:true});
-window.addEventListener('resize',()=>{ refreshStageRect(); requestHeroMotion(); });
+window.addEventListener('resize',requestHeroMotion);
 requestHeroMotion();
 
 document.querySelectorAll('.card').forEach(card=>{
