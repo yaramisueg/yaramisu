@@ -581,7 +581,7 @@ async function loadProducts(){
           <span class="card-number">MENU ERROR</span>
           <h3>We couldn't load the menu.</h3>
           <p class="menu-description" style="max-width:100%">
-            Please check your Supabase connection and Row Level Security policy.
+            Please try again in a moment.
           </p>
         </div>
       </div>`;
@@ -753,11 +753,10 @@ orderForm.addEventListener('submit', async e => {
     orderStatus.textContent =
       `Order request sent successfully. Your order number is #${orderId}.`;
   } catch(error) {
+    // Keep technical details out of the customer-facing UI.
     console.error('Order submission failed:', error);
     orderStatus.textContent =
-      error?.message
-        ? `We could not send the order: ${error.message}`
-        : 'We could not send the order. Please try again.';
+      'We could not send your order right now. Please try again in a moment.';
   } finally {
     submitButton.disabled = false;
     submitButton.style.opacity = '';
