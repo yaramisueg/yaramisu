@@ -399,6 +399,7 @@ body, nav, .card, .order, .marquee, .story, .btn, .theme-menu, .theme-trigger, f
 
 <footer><span>© 2026 Yaramisu</span><span>Egypt</span></footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const nav=document.getElementById('nav'), stage=document.getElementById('stage'), tir=document.getElementById('tiramisu');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20),{passive:true});
@@ -493,7 +494,7 @@ const SUPABASE_URL = 'https://ldimulydxeigxmeruavh.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_Bq9eBusa3Ednh3sUsVG82A_YnMwgXVM';
 
 const supabaseClient =
-  window.supabase && SUPABASE_URL !== 'https://ldimulydxeigxmeruavh.supabase.co'
+  window.supabase && SUPABASE_URL !== 'YOUR_SUPABASE_URL'
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
     : null;
 
