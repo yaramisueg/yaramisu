@@ -706,10 +706,7 @@ orderForm.addEventListener('submit', async e => {
     .filter(p => (cart.get(p.id) || 0) > 0)
     .map(p => ({
       product_id: p.id,
-      product_name: p.name,
-      quantity: cart.get(p.id),
-      unit_price: Number(p.price),
-      total_price: Number(p.price) * cart.get(p.id)
+      quantity: cart.get(p.id)
     }));
 
   if(!selected.length){
@@ -718,7 +715,6 @@ orderForm.addEventListener('submit', async e => {
   }
 
   const formData = new FormData(orderForm);
-  const subtotal = selected.reduce((sum,item) => sum + item.total_price, 0);
 
   const submitButton = document.getElementById('submitOrder');
   submitButton.disabled = true;
@@ -726,46 +722,42 @@ orderForm.addEventListener('submit', async e => {
   orderStatus.textContent = 'Sending your order request...';
 
   try {
-    // Insert the order first.
-    const { data: order, error: orderError } = await supabaseClient
-      .from('orders')
-      .insert({
-        customer_name: formData.get('customer_name'),
-        customer_phone: formData.get('customer_phone'),
-        customer_email: formData.get('customer_email') || null,
-        delivery_address: formData.get('delivery_address'),
-        notes: formData.get('notes') || null,
-        status: 'pending',
-        subtotal: subtotal,
-        delivery_fee: 0,
-        total: subtotal
-      })
-      .select('id')
-      .single();
+    /*
+      The database function:
+      - validates the selected products
+      - gets the real prices from products
+      - creates orders
+      - creates order_items
+      - returns the order ID
 
-    if(orderError) throw orderError;
+      This prevents customers from changing prices in browser code.
+    */
+    const { data: orderId, error } = await supabaseClient.rpc(
+      'submit_order',
+      {
+        p_customer_name: formData.get('customer_name'),
+        p_customer_phone: formData.get('customer_phone'),
+        p_customer_email: formData.get('customer_email') || '',
+        p_delivery_address: formData.get('delivery_address'),
+        p_notes: formData.get('notes') || '',
+        p_items: selected
+      }
+    );
 
-    // Insert the individual items.
-    const { error: itemsError } = await supabaseClient
-      .from('order_items')
-      .insert(
-        selected.map(item => ({
-          order_id: order.id,
-          ...item
-        }))
-      );
-
-    if(itemsError) throw itemsError;
+    if(error) throw error;
 
     orderForm.reset();
     cart.clear();
     renderOrderItems();
+
     orderStatus.textContent =
-      `Order request sent successfully. Your order number is #${order.id}.`;
+      `Order request sent successfully. Your order number is #${orderId}.`;
   } catch(error) {
     console.error('Order submission failed:', error);
     orderStatus.textContent =
-      'We could not send the order. Please try again.';
+      error?.message
+        ? `We could not send the order: ${error.message}`
+        : 'We could not send the order. Please try again.';
   } finally {
     submitButton.disabled = false;
     submitButton.style.opacity = '';
