@@ -223,6 +223,66 @@ body, nav, .card, .order, .marquee, .story, .btn, .theme-menu, .theme-trigger, f
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
 }
+
+/* SUPABASE MENU + ORDER FORM */
+.menu-card .menu-price{
+  position:absolute;top:28px;right:28px;
+  font-size:12px;letter-spacing:.08em;color:var(--coffee);z-index:4;
+}
+.menu-card .menu-product-image{z-index:2}
+.menu-card .menu-description{z-index:3}
+.menu-empty{grid-column:1/-1;min-height:220px;display:grid;place-items:center;text-align:center}
+.order-modal{
+  position:fixed;inset:0;z-index:100;display:grid;place-items:center;
+  padding:24px;background:rgba(20,12,10,.58);backdrop-filter:blur(10px);
+  opacity:0;visibility:hidden;transition:.3s var(--ease);
+}
+.order-modal.open{opacity:1;visibility:visible}
+.order-dialog{
+  width:min(560px,100%);max-height:min(760px,90vh);overflow:auto;
+  background:var(--paper);color:var(--ink);border:1px solid var(--line);
+  border-radius:28px;padding:34px;position:relative;box-shadow:0 30px 90px rgba(0,0,0,.25);
+}
+.order-close{
+  position:absolute;right:18px;top:18px;width:38px;height:38px;border-radius:50%;
+  border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer;font-size:20px;
+}
+.order-dialog h3{font-family:"Playfair Display",serif;font-size:38px;font-weight:500;margin:0 0 8px;color:var(--espresso)}
+.order-sub{color:var(--muted);font-size:13px;line-height:1.6;margin:0 0 24px}
+.order-fields{display:grid;gap:9px;margin-top:18px}
+.order-fields label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--coffee)}
+.order-fields input,.order-fields textarea{
+  width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:12px;
+  background:transparent;color:var(--ink);font:inherit;outline:none;margin-bottom:6px;
+}
+.order-fields textarea{min-height:78px;resize:vertical}
+.order-items{display:grid;gap:10px;margin:18px 0}
+.order-item{
+  display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:10px;
+  padding:12px;border:1px solid var(--line);border-radius:14px;
+}
+.order-item-name{font-weight:600;font-size:14px}
+.order-item-price{font-size:11px;color:var(--muted)}
+.order-qty{display:flex;align-items:center;gap:8px}
+.order-qty button{
+  width:28px;height:28px;border:1px solid var(--line);border-radius:50%;
+  background:none;color:var(--ink);cursor:pointer;
+}
+.order-qty span{min-width:18px;text-align:center;font-size:12px}
+.order-total{
+  margin:20px 0;font-family:"Playfair Display",serif;font-size:25px;color:var(--espresso);
+}
+.order-status{min-height:20px;margin:14px 0 0;color:var(--muted);font-size:12px;line-height:1.5}
+.order-dialog .btn{border:0;cursor:pointer}
+@media(max-width:560px){
+  .order-modal{padding:12px}
+  .order-dialog{padding:28px 20px;border-radius:22px}
+  .order-dialog h3{font-size:32px}
+  .order-item{grid-template-columns:1fr auto}
+  .order-item-price{grid-column:1}
+  .order-qty{grid-column:2;grid-row:1 / span 2}
+}
+
 </style>
 </head>
 <body>
@@ -271,45 +331,14 @@ body, nav, .card, .order, .marquee, .story, .btn, .theme-menu, .theme-trigger, f
     </div>
     <p>Choose your Yaramisu favorite.</p>
   </div>
-  <div class="cards menu-cards">
-    <article class="card menu-card reveal">
-      <span class="card-number">01 / ORIGINAL</span>
-      <h3>Original</h3>
-      <p class="menu-description">Classic tiramisu with mascarpone cream, coffee-soaked ladyfingers and a delicate cocoa finish.</p>
-      <img class="menu-product-image" src="assets/original.png" alt="Yaramisu Original tiramisu">
-    </article>
-    <article class="card menu-card reveal">
-      <span class="card-number">02 / CHOCOLATE</span>
-      <h3>Chocolate</h3>
-      <p class="menu-description">Rich and indulgent, layered with mascarpone cream, chocolate sponge and smooth chocolate.</p>
-      <img class="menu-product-image" src="assets/chocolate.png" alt="Yaramisu Chocolate tiramisu">
-    </article>
-    <article class="card menu-card reveal">
-      <span class="card-number">03 / LOTUS</span>
-      <h3>Lotus</h3>
-      <p class="menu-description">A creamy favorite with Lotus biscuit spread, caramelized biscuit crumbs and mascarpone.</p>
-      <img class="menu-product-image" src="assets/lotus.png" alt="Yaramisu Lotus tiramisu">
-    </article>
-    <article class="card menu-card reveal">
-      <span class="card-number">04 / LEMON</span>
-      <h3>Lemon</h3>
-      <p class="menu-description">A refreshing twist with silky mascarpone cream, bright lemon curd and delicate lemon zest.</p>
-      <img class="menu-product-image" src="assets/lemon.png" alt="Yaramisu Lemon tiramisu">
-    </article>
-    <article class="card menu-card reveal">
-      <span class="card-number">05 / MANGO</span>
-      <h3>Mango</h3>
-      <p class="menu-description">Tropical and creamy, combining mascarpone cream, ripe mango purée and soft ladyfingers.</p>
-      <img class="menu-product-image" src="assets/mango.png" alt="Yaramisu Mango tiramisu">
-    </article>
-    <article class="card menu-card reveal">
-      <span class="card-number">06 / RASPBERRY</span>
-      <h3>Raspberry</h3>
-      <p class="menu-description">Fruity and vibrant, layered with mascarpone cream, raspberry compote and soft ladyfingers.</p>
-      <img class="menu-product-image" src="assets/raspberry.png" alt="Yaramisu Raspberry tiramisu">
-    </article>
-  </div>
-</section>
+  <div class="cards menu-cards" id="menuCards">
+      <div class="card menu-card reveal" id="menuLoading">
+        <span class="card-number">00 / MENU</span>
+        <h3>Loading...</h3>
+        <p class="menu-description">Loading today's Yaramisu collection.</p>
+      </div>
+    </div>
+  </section>
 
 <section class="story" id="story">
   <div class="reveal"><div class="kicker">The idea</div><h2>Small rituals.<br>Beautifully made.</h2><p>Yaramisu started with a simple thought: dessert should feel like a pause. A moment to put the day down, take a spoon, and enjoy something made with care.</p></div>
@@ -328,8 +357,44 @@ body, nav, .card, .order, .marquee, .story, .btn, .theme-menu, .theme-trigger, f
 
 <section class="order" id="order">
   <div class="reveal"><div class="kicker">Your next sweet moment</div><h2>Ready for<br>your spoon?</h2></div>
-  <div class="actions reveal"><a class="btn primary" href="mailto:hello@yaramisu.com">Order Yaramisu ↗</a><a class="btn ghost" href="#top">Back to top ↑</a></div>
+  <div class="actions reveal"><button class="btn primary" type="button" id="openOrder">Order Yaramisu ↗</button><a class="btn ghost" href="#top">Back to top ↑</a></div>
 </section>
+
+<!-- ORDER MODAL -->
+<div class="order-modal" id="orderModal" aria-hidden="true">
+  <div class="order-dialog" role="dialog" aria-modal="true" aria-labelledby="orderTitle">
+    <button class="order-close" id="closeOrder" type="button" aria-label="Close order form">×</button>
+    <div class="kicker">Your next sweet moment</div>
+    <h3 id="orderTitle">Order Yaramisu</h3>
+    <p class="order-sub">Choose your favorites and send your order request. No account is required.</p>
+
+    <form id="orderForm">
+      <div class="order-items" id="orderItems"></div>
+
+      <div class="order-fields">
+        <label for="customerName">Name</label>
+        <input id="customerName" name="customer_name" required autocomplete="name" placeholder="Your name">
+
+        <label for="customerPhone">Phone</label>
+        <input id="customerPhone" name="customer_phone" required autocomplete="tel" placeholder="Your phone number">
+
+        <label for="customerEmail">Email <span style="opacity:.55">(optional)</span></label>
+        <input id="customerEmail" name="customer_email" type="email" autocomplete="email" placeholder="you@example.com">
+
+        <label for="deliveryAddress">Delivery address</label>
+        <textarea id="deliveryAddress" name="delivery_address" required placeholder="Where should we deliver?"></textarea>
+
+        <label for="orderNotes">Notes <span style="opacity:.55">(optional)</span></label>
+        <textarea id="orderNotes" name="notes" placeholder="Anything we should know?"></textarea>
+      </div>
+
+      <div class="order-total" id="orderTotal">Total: 0</div>
+      <button class="btn primary" type="submit" id="submitOrder">Send order request ↗</button>
+      <p id="orderStatus" class="order-status" role="status"></p>
+    </form>
+  </div>
+</div>
+
 </main>
 
 <footer><span>© 2026 Yaramisu</span><span>Egypt</span></footer>
@@ -416,6 +481,297 @@ themeButtons.forEach(btn=>{
   btn.addEventListener('click',()=>applyTheme(btn.dataset.theme));
 });
 document.addEventListener('click',()=>themeMenu.classList.remove('open'));
+
+
+/* ==========================================================
+   SUPABASE
+   Replace these two values with your Supabase project values.
+   Use the browser-safe publishable/anon key only — NEVER a
+   service_role key in this HTML file.
+   ========================================================== */
+const SUPABASE_URL = 'https://ldimulydxeigxmeruavh.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_Bq9eBusa3Ednh3sUsVG82A_YnMwgXVM';
+
+const supabaseClient =
+  window.supabase && SUPABASE_URL !== 'YOUR_SUPABASE_URL'
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    : null;
+
+const menuCards = document.getElementById('menuCards');
+const orderModal = document.getElementById('orderModal');
+const orderItemsEl = document.getElementById('orderItems');
+const orderTotalEl = document.getElementById('orderTotal');
+const orderStatus = document.getElementById('orderStatus');
+const orderForm = document.getElementById('orderForm');
+
+let products = [];
+const cart = new Map();
+
+function money(value){
+  return `${Number(value || 0).toFixed(2)}`;
+}
+
+function escapeHTML(value){
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'
+  }[char]));
+}
+
+function productImage(product){
+  return product.image_url || 'assets/Yaramisu_Hero_Tiramisu.png';
+}
+
+function renderProducts(){
+  if(!products.length){
+    menuCards.innerHTML = `
+      <div class="card menu-empty">
+        <div>
+          <span class="card-number">MENU</span>
+          <h3>No products available</h3>
+          <p class="menu-description" style="max-width:100%">
+            The menu is currently unavailable. Please check back soon.
+          </p>
+        </div>
+      </div>`;
+    return;
+  }
+
+  menuCards.innerHTML = products.map((product, index) => `
+    <article class="card menu-card reveal visible" data-product-id="${product.id}">
+      <span class="card-number">${String(index + 1).padStart(2,'0')} / ${escapeHTML((product.slug || product.name).toUpperCase())}</span>
+      ${product.price != null ? `<span class="menu-price">${money(product.price)}</span>` : ''}
+      <h3>${escapeHTML(product.name)}</h3>
+      <p class="menu-description">${escapeHTML(product.description || '')}</p>
+      <img class="menu-product-image"
+           src="${escapeHTML(productImage(product))}"
+           alt="${escapeHTML(product.name)}">
+    </article>
+  `).join('');
+
+  document.querySelectorAll('.menu-card').forEach(card => {
+    card.addEventListener('pointermove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX-r.left)/r.width-.5;
+      const y = (e.clientY-r.top)/r.height-.5;
+      card.style.transform =
+        `perspective(900px) rotateX(${y*-3}deg) rotateY(${x*3}deg) translateY(-8px)`;
+    });
+    card.addEventListener('pointerleave', () => card.style.transform = '');
+  });
+}
+
+async function loadProducts(){
+  if(!supabaseClient){
+    console.warn('Supabase is not configured yet.');
+    return;
+  }
+
+  const { data, error } = await supabaseClient
+    .from('products')
+    .select('id,name,slug,description,price,image_url,sort_order')
+    .eq('is_available', true)
+    .order('sort_order', { ascending:true });
+
+  if(error){
+    console.error('Could not load products:', error);
+    menuCards.innerHTML = `
+      <div class="card menu-empty">
+        <div>
+          <span class="card-number">MENU ERROR</span>
+          <h3>We couldn't load the menu.</h3>
+          <p class="menu-description" style="max-width:100%">
+            Please check your Supabase connection and Row Level Security policy.
+          </p>
+        </div>
+      </div>`;
+    return;
+  }
+
+  products = data || [];
+  renderProducts();
+}
+
+function openOrderModal(){
+  if(!products.length){
+    alert('The menu is not available right now.');
+    return;
+  }
+
+  if(cart.size === 0){
+    products.forEach(product => cart.set(product.id, 0));
+    // Start with one of each only when explicitly selected below.
+    cart.clear();
+  }
+
+  renderOrderItems();
+  orderStatus.textContent = '';
+  orderModal.classList.add('open');
+  orderModal.setAttribute('aria-hidden','false');
+}
+
+function closeOrderModal(){
+  orderModal.classList.remove('open');
+  orderModal.setAttribute('aria-hidden','true');
+}
+
+function renderOrderItems(){
+  const selected = products.filter(p => (cart.get(p.id) || 0) > 0);
+
+  if(!selected.length){
+    orderItemsEl.innerHTML = `
+      <div class="order-item" style="display:block;text-align:center">
+        <div class="order-item-name">Choose your Yaramisu</div>
+        <div class="order-item-price" style="margin-top:5px">
+          Add an item using the + button below.
+        </div>
+      </div>
+      ${products.map(p => `
+        <div class="order-item">
+          <div>
+            <div class="order-item-name">${escapeHTML(p.name)}</div>
+            <div class="order-item-price">${money(p.price)}</div>
+          </div>
+          <div></div>
+          <div class="order-qty">
+            <button type="button" data-minus="${p.id}" disabled>−</button>
+            <span>0</span>
+            <button type="button" data-plus="${p.id}">+</button>
+          </div>
+        </div>
+      `).join('')}`;
+  } else {
+    orderItemsEl.innerHTML = products.map(p => {
+      const qty = cart.get(p.id) || 0;
+      return `
+        <div class="order-item">
+          <div>
+            <div class="order-item-name">${escapeHTML(p.name)}</div>
+            <div class="order-item-price">${money(p.price)} each</div>
+          </div>
+          <div class="order-item-price">${money(Number(p.price) * qty)}</div>
+          <div class="order-qty">
+            <button type="button" data-minus="${p.id}" ${qty <= 0 ? 'disabled' : ''}>−</button>
+            <span>${qty}</span>
+            <button type="button" data-plus="${p.id}">+</button>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  const total = products.reduce((sum,p) =>
+    sum + Number(p.price || 0) * Number(cart.get(p.id) || 0), 0
+  );
+  orderTotalEl.textContent = `Total: ${money(total)}`;
+
+  orderItemsEl.querySelectorAll('[data-plus]').forEach(button => {
+    button.addEventListener('click', () => {
+      const id = Number(button.dataset.plus);
+      cart.set(id, (cart.get(id) || 0) + 1);
+      renderOrderItems();
+    });
+  });
+
+  orderItemsEl.querySelectorAll('[data-minus]').forEach(button => {
+    button.addEventListener('click', () => {
+      const id = Number(button.dataset.minus);
+      const next = Math.max(0, (cart.get(id) || 0) - 1);
+      if(next === 0) cart.delete(id);
+      else cart.set(id, next);
+      renderOrderItems();
+    });
+  });
+}
+
+document.getElementById('openOrder').addEventListener('click', openOrderModal);
+document.getElementById('closeOrder').addEventListener('click', closeOrderModal);
+
+orderModal.addEventListener('click', e => {
+  if(e.target === orderModal) closeOrderModal();
+});
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') closeOrderModal();
+});
+
+orderForm.addEventListener('submit', async e => {
+  e.preventDefault();
+
+  if(!supabaseClient){
+    orderStatus.textContent = 'Supabase is not configured yet.';
+    return;
+  }
+
+  const selected = products
+    .filter(p => (cart.get(p.id) || 0) > 0)
+    .map(p => ({
+      product_id: p.id,
+      product_name: p.name,
+      quantity: cart.get(p.id),
+      unit_price: Number(p.price),
+      total_price: Number(p.price) * cart.get(p.id)
+    }));
+
+  if(!selected.length){
+    orderStatus.textContent = 'Please choose at least one item.';
+    return;
+  }
+
+  const formData = new FormData(orderForm);
+  const subtotal = selected.reduce((sum,item) => sum + item.total_price, 0);
+
+  const submitButton = document.getElementById('submitOrder');
+  submitButton.disabled = true;
+  submitButton.style.opacity = '.6';
+  orderStatus.textContent = 'Sending your order request...';
+
+  try {
+    // Insert the order first.
+    const { data: order, error: orderError } = await supabaseClient
+      .from('orders')
+      .insert({
+        customer_name: formData.get('customer_name'),
+        customer_phone: formData.get('customer_phone'),
+        customer_email: formData.get('customer_email') || null,
+        delivery_address: formData.get('delivery_address'),
+        notes: formData.get('notes') || null,
+        status: 'pending',
+        subtotal: subtotal,
+        delivery_fee: 0,
+        total: subtotal
+      })
+      .select('id')
+      .single();
+
+    if(orderError) throw orderError;
+
+    // Insert the individual items.
+    const { error: itemsError } = await supabaseClient
+      .from('order_items')
+      .insert(
+        selected.map(item => ({
+          order_id: order.id,
+          ...item
+        }))
+      );
+
+    if(itemsError) throw itemsError;
+
+    orderForm.reset();
+    cart.clear();
+    renderOrderItems();
+    orderStatus.textContent =
+      `Order request sent successfully. Your order number is #${order.id}.`;
+  } catch(error) {
+    console.error('Order submission failed:', error);
+    orderStatus.textContent =
+      'We could not send the order. Please try again.';
+  } finally {
+    submitButton.disabled = false;
+    submitButton.style.opacity = '';
+  }
+});
+
+loadProducts();
 
 </script>
 </body>
